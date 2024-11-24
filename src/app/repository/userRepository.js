@@ -4,12 +4,12 @@ const prisma = instanciaPrisma.getConnection();
 
 class UserRepository {
     
-    async create(name, password, email) {
+    async create(name, email, password) {
         try {
             const userExists = await prisma.users.findUnique({where: {email}});
             
             if (userExists === null) {
-                const createUser = await prisma.users.create({data: {name, password, email}})
+                const createUser = await prisma.users.create({data: {name, email,  password}})
                 return createUser;
 
             } else {
