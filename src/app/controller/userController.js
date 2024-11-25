@@ -11,7 +11,10 @@ class UserController {
             response.status(200).json({message: 'Usuário criado com sucesso!'})
 
         } catch (error) {
-            response.status(500).json({message: 'Controller: Erro interno no servidor!'})
+            response.status(500).json({
+                message: "Controller: Erro interno no servidor!",
+                error: error.message
+            });
         }
     }
 
@@ -32,7 +35,7 @@ class UserController {
 
     async showUnique(request, response) {
         try {
-            const {email} = req.params.body;
+            const {email} = request.body;
             const user = await showUnique(email);
             response.status(200).json(user)
 

@@ -6,7 +6,7 @@ const { create, showAll, showUnique, deleteUser} = new UserController;
 
 userRoute.post('/cadastrar', create)
 userRoute.get('/mostrar-usuarios', showAll)
-userRoute.get('/mostrar-unico/:id', showUnique)
+userRoute.get('/mostrar-unico/', showUnique)
 userRoute.delete('/deletar-usuario', deleteUser)
 
 export default userRoute;

@@ -13,7 +13,7 @@ class UserRepository {
                 return createUser;
 
             } else {
-                throw new Error('Repository: Escola já criada!')
+                throw new Error('Repository: Usuário já criado!')
             
             }
 
@@ -29,8 +29,8 @@ class UserRepository {
             return allUser;
 
         } catch (error) {
-            throw new Error(error)
-            console.log("Erro no catch!");
+            console.log("Erro no catch!", error);
+            throw error;
         }
     }
 
@@ -45,8 +45,8 @@ class UserRepository {
             };
 
         } catch (error) {
-            throw new Error(error)
-            console.log("Erro no catch!");
+            console.log("Erro no catch!", error);
+            throw error;
         }
     }
 
@@ -62,7 +62,8 @@ class UserRepository {
             const message = {message: 'Usuário deletado com sucesso!'};
             return message;
         } catch (error) {
-            throw new Error(error)
+            console.log("Erro no catch!", error);
+            throw error;
         }
     }
 };
