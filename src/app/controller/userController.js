@@ -1,6 +1,6 @@
 import UserRepository from "../repository/userRepository.js";
 
-const {create, showAll, showUnique, deleteUser} = new UserRepository();
+const {create, showAll, showUnique, updateUser, deleteUser} = new UserRepository();
 
 class UserController {
 
@@ -44,6 +44,29 @@ class UserController {
                 message: "Controller: Erro interno no servidor!",
                 error: error.message
             });
+        }
+    }
+
+    async updateUser(request, response) {
+        try {
+            const {name, email, password} = request.body;
+            const {userOld, userUpdated} = await updateUser(name, email, password);
+            if (name === null || email === null || password === null) {
+                return response.status(400).json({message: 'Todos os campos são obrigatórios!'})
+            }
+
+            response.status(200).json({
+                message: 'Usuário atualizado com sucesso!',
+                userOld, 
+                userUpdated
+            });
+
+        } catch (error) {
+            response.status(500).json({
+                message: "Controller: Erro interno no servidor!",
+                error: error.message
+            });
+
         }
     }
 

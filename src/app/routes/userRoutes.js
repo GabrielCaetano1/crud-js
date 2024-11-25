@@ -2,11 +2,12 @@ import express from "express";
 import UserController from "../controller/userController.js";
 
 const userRoute = express.Router();
-const { create, showAll, showUnique, deleteUser} = new UserController;
+const { create, showAll, showUnique, updateUser, deleteUser} = new UserController;
 
-userRoute.post('/cadastrar', create)
-userRoute.get('/mostrar-usuarios', showAll)
-userRoute.get('/mostrar-unico/', showUnique)
-userRoute.delete('/deletar-usuario', deleteUser)
+userRoute.post('/cadastrar', create);
+userRoute.get('/mostrar-usuarios', showAll);
+userRoute.get('/mostrar-unico/', showUnique);
+userRoute.put('/atualizar-usuario', updateUser);
+userRoute.delete('/deletar-usuario', deleteUser);
 
 export default userRoute;

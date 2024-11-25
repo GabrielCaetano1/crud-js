@@ -18,7 +18,7 @@ class UserRepository {
             }
 
         } catch (error) {
-            console.log("Erro no catch!", error);
+            console.log('Erro no catch!', error);
             throw error;
         }
     }
@@ -29,7 +29,7 @@ class UserRepository {
             return allUser;
 
         } catch (error) {
-            console.log("Erro no catch!", error);
+            console.log('Erro no catch!', error);
             throw error;
         }
     }
@@ -45,8 +45,32 @@ class UserRepository {
             };
 
         } catch (error) {
-            console.log("Erro no catch!", error);
+            console.log('Erro no catch!', error);
             throw error;
+        }
+    }
+
+    async updateUser(name, email, password) {
+        try {
+            const userExists = await prisma.users.findUnique({where: {email}});
+
+            if (userExists) {
+                const userUpdated = await prisma.users.update({
+                    where: {email}, 
+                    data:{name, email, password}
+                });
+
+                return {
+                    userOld: userExists,
+                    userUpdated
+                }
+            } else {
+                throw new Error('Usuário não existe')
+            }
+        } catch (error) {
+            console.log('Erro no catch!', error);
+            throw error;
+            
         }
     }
 
@@ -62,7 +86,7 @@ class UserRepository {
             const message = {message: 'Usuário deletado com sucesso!'};
             return message;
         } catch (error) {
-            console.log("Erro no catch!", error);
+            console.log('Erro no catch!', error);
             throw error;
         }
     }
