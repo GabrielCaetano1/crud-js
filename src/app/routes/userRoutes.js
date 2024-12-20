@@ -6,8 +6,8 @@ const { create, showAll, showUnique, updateUser, deleteUser} = new UserControlle
 
 userRoute.post('/cadastrar', create);
 userRoute.get('/mostrar-usuarios', showAll);
-userRoute.get('/mostrar-unico/', showUnique);
-userRoute.put('/atualizar-usuario', updateUser);
+userRoute.get('/mostrar-unico/:id', showUnique);
+userRoute.patch('/atualizar-usuario', updateUser);
 userRoute.delete('/deletar-usuario', deleteUser);
 
 export default userRoute;

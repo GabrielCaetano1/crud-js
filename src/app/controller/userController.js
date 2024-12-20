@@ -35,9 +35,10 @@ class UserController {
 
     async showUnique(request, response) {
         try {
-            const {email} = request.body;
-            const user = await showUnique(email);
-            response.status(200).json(user)
+            const {id} = request.params;
+            const idNumber = Number(id)
+            const userUnique = await showUnique(idNumber);
+            response.status(200).json(userUnique)
 
         } catch (error) {
             response.status(500).json({
@@ -49,12 +50,9 @@ class UserController {
 
     async updateUser(request, response) {
         try {
-            const {name, email, password} = request.body;
-            const {userOld, userUpdated} = await updateUser(name, email, password);
-            if (name === null || email === null || password === null) {
-                return response.status(400).json({message: 'Todos os campos são obrigatórios!'})
-            }
-
+            const {id, name, email, password} = request.body;
+            const {userOld, userUpdated} = await updateUser(id, name, email, password);
+            
             response.status(200).json({
                 message: 'Usuário atualizado com sucesso!',
                 userOld, 

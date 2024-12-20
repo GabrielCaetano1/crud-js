@@ -34,15 +34,10 @@ class UserRepository {
         }
     }
 
-    async showUnique(email) {
+    async showUnique(id) {
         try {
-            const emailUnique = await prisma.users.findUnique({where: {email}});
-
-            if (email) {
-                return emailUnique;
-            } else {
-                throw new Error('Repository: User não encontrado!')
-            };
+            const userUnique = await prisma.users.findUnique({where: {id}});
+            return userUnique;
 
         } catch (error) {
             console.log('Erro no catch!', error);
@@ -50,14 +45,24 @@ class UserRepository {
         }
     }
 
-    async updateUser(name, email, password) {
+    async updateUser(id, name, email, password) {
         try {
-            const userExists = await prisma.users.findUnique({where: {email}});
+            const userId = id;
+            const userExists = await prisma.users.findUnique({
+                where: {id: userId},
+            })
 
             if (userExists) {
+                const updateData = {};
+                if (name) updateData.name = name;
+                if (email) updateData.email = email;
+                if (password) updateData.password = password;
+
+
+
                 const userUpdated = await prisma.users.update({
-                    where: {email}, 
-                    data:{name, email, password}
+                    where: {id: userId}, 
+                    data: updateData
                 });
 
                 return {
